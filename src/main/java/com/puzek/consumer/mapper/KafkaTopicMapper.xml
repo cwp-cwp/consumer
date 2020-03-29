@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.puzek.consumer.mapper.KafkaTopicMapper">
+
+    <resultMap id="kafkaTopic" type="com.puzek.consumer.bean.KafkaTopic">
+        <result property="id" column="id"/>
+        <result property="topicLevel" column="topic_level"/>
+        <result property="topicName" column="topic_name"/>
+    </resultMap>
+
+    <insert id="saveKafkaTopic" parameterType="com.puzek.consumer.bean.KafkaTopic">
+        INSERT INTO cloud.kafka_topic (topic_level, topic_name) VALUES (#{topicLevel}, #{topicName});
+    </insert>
+
+    <select id="getAllThreeLevelTopic" resultMap="kafkaTopic">
+        SELECT
+          t.id,
+          t.topic_level,
+          t.topic_name
+        FROM cloud.kafka_topic AS t
+        WHERE t.topic_level = 'THREE'
+    </select>
+
+</mapper>

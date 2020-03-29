@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.puzek.consumer.mapper.SystemOffsetMapper">
+
+    <resultMap id="systemOffset" type="com.puzek.consumer.bean.SystemOffset">
+        <result property="key" column="keys"/>
+        <result property="offset" column="offsets"/>
+    </resultMap>
+
+    <select id="readSystemOffset" resultType="java.lang.Long">
+        SELECT DISTINCT
+          s.offsets
+        FROM cloud.system_offset AS s
+        WHERE s.keys = #{key}
+    </select>
+
+    <insert id="initSystemOffset">
+        INSERT INTO cloud.system_offset (keys, offsets) VALUES (#{key}, #{offset})
+    </insert>
+
+    <update id="updateSystemOffset">
+        UPDATE cloud.system_offset SET offsets = #{offset} WHERE keys = #{key}
+    </update>
+
+    <select id="getSystemOffsetByKey" resultMap="systemOffset">
+        SELECT
+          s.keys,
+          s.offsets
+        FROM cloud.system_offset AS s
+        WHERE s.keys = #{key}
+    </select>
+
+</mapper>

@@ -1,0 +1,17 @@
+server:
+  port: 8888
+
+spring:
+    datasource:
+        url: jdbc:postgresql://127.0.0.1:5432/robot
+        username: postgres
+        password: postgres
+        driver-class-name: org.postgresql.Driver
+#    jmx:
+#      enabled: false # 部署到外部 tomcat 时需要配置
+mybatis:
+  mapper-locations: com.puzek.consumer.mapper.*.xml
+
+logging:
+  level:
+    com.puzek.consumer.mapper: debug
